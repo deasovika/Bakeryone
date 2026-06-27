@@ -1,0 +1,1979 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>BakeryOne — Homemade Bakery</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: #f5f0e8;
+        color: #1e1208;
+        overflow-x: hidden;
+      }
+
+      :root {
+        --rust: #7b2020;
+        --rust-dk: #5c1818;
+        --rust-lt: rgba(123, 32, 32, 0.08);
+        --olive: #3d4a35;
+        --olive-lt: #4e5f45;
+        --cream: #f5f0e8;
+        --white: #fdfbf7;
+        --sand: #ddd5c5;
+        --taupe: #8a7b6a;
+        --ink: #1e1208;
+        --card-bg: #fdfbf7;
+      }
+
+      /* ── NAVBAR ── */
+      #mainNav {
+        background: var(--white);
+        border-bottom: 1px solid rgba(30, 18, 8, 0.08);
+        padding: 0.75rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+      .nav-logo {
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--rust);
+        text-decoration: none;
+        line-height: 1;
+      }
+      .nav-logo small {
+        display: block;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 0.48rem;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--taupe);
+        margin-top: 0.15rem;
+      }
+      .navbar-nav .nav-link {
+        font-size: 0.85rem;
+        font-weight: 400;
+        color: var(--ink) !important;
+        padding: 0.3rem 0.95rem !important;
+        position: relative;
+        transition: color 0.2s;
+      }
+      .navbar-nav .nav-link:hover {
+        color: var(--rust) !important;
+      }
+      .navbar-nav .nav-link.active {
+        color: var(--rust) !important;
+      }
+      .navbar-nav .nav-link.active::after {
+        content: "";
+        display: block;
+        height: 2px;
+        width: 100%;
+        background: var(--rust);
+        border-radius: 2px;
+        position: absolute;
+        bottom: -3px;
+        left: 0;
+      }
+      .btn-nav-wa {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--rust);
+        color: #fff;
+        font-size: 0.82rem;
+        font-weight: 500;
+        border: none;
+        border-radius: 50px;
+        padding: 0.55rem 1.3rem;
+        text-decoration: none;
+        transition:
+          background 0.2s,
+          transform 0.15s;
+        white-space: nowrap;
+      }
+      .btn-nav-wa:hover {
+        background: var(--rust-dk);
+        color: #fff;
+        transform: translateY(-1px);
+      }
+      .navbar-toggler {
+        border: none;
+        padding: 0.3rem 0.55rem;
+        background: transparent;
+        box-shadow: none !important;
+      }
+
+      /* ── HERO ── */
+      #hero {
+        background: var(--cream);
+        min-height: 88vh;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
+      }
+      .hero-left {
+        padding: 5rem 3rem 5rem 0;
+        padding-left: calc((100vw - 1200px) / 2 + 1rem);
+      }
+      .hero-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--taupe);
+        margin-bottom: 1.2rem;
+      }
+      .hero-label i {
+        color: var(--rust);
+        font-size: 0.75rem;
+      }
+      .hero-title {
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+        font-weight: 700;
+        font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+        line-height: 1.1;
+        color: var(--rust);
+        margin-bottom: 0.8rem;
+      }
+      .hero-divider {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        margin-bottom: 1.1rem;
+      }
+      .hero-divider-line {
+        height: 1px;
+        width: 40px;
+        background: var(--rust);
+        opacity: 0.4;
+      }
+      .hero-divider-emoji {
+        font-size: 1.1rem;
+      }
+      .hero-desc {
+        font-size: 0.92rem;
+        color: var(--taupe);
+        line-height: 1.85;
+        font-weight: 300;
+        max-width: 360px;
+        margin-bottom: 2rem;
+      }
+      .btn-hero-wa {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        background: var(--olive);
+        color: #fff;
+        font-size: 0.85rem;
+        font-weight: 500;
+        border: none;
+        border-radius: 50px;
+        padding: 0.9rem 1.8rem;
+        text-decoration: none;
+        transition:
+          background 0.2s,
+          transform 0.15s;
+      }
+      .btn-hero-wa:hover {
+        background: var(--olive-lt);
+        color: #fff;
+        transform: translateY(-2px);
+      }
+      .hero-right {
+        height: 100%;
+        min-height: 88vh;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-right img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .hero-right::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to right, var(--cream) 0%, transparent 20%);
+        pointer-events: none;
+      }
+
+      /* ── FEATURES STRIP ── */
+      #features {
+        background: var(--white);
+        padding: 0;
+        border-top: 1px solid rgba(30, 18, 8, 0.06);
+        border-bottom: 1px solid rgba(30, 18, 8, 0.06);
+      }
+      .feat-strip {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .feat-item {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+        padding: 1.4rem 1.6rem;
+        border-right: 1px solid rgba(30, 18, 8, 0.07);
+      }
+      .feat-item:last-child {
+        border-right: none;
+      }
+      .feat-icon {
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-size: 1.05rem;
+      }
+      .feat-icon.olive {
+        background: rgba(61, 74, 53, 0.1);
+        color: var(--olive);
+      }
+      .feat-icon.rust {
+        background: rgba(123, 32, 32, 0.1);
+        color: var(--rust);
+      }
+      .feat-name {
+        font-weight: 500;
+        font-size: 0.85rem;
+        color: var(--ink);
+        margin-bottom: 0.1rem;
+      }
+      .feat-sub {
+        font-size: 0.75rem;
+        color: var(--taupe);
+        font-weight: 300;
+        line-height: 1.4;
+      }
+
+      /* ── SECTION TITLE ── */
+      .sec-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+        font-weight: 700;
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        color: var(--ink);
+      }
+      .sec-eyebrow-emoji {
+        font-size: 1rem;
+        font-style: normal;
+      }
+
+      /* ── MENU SECTION ── */
+      #menu {
+        padding: 72px 0 80px;
+        background: var(--cream);
+      }
+      .menu-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.6rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .sec-link {
+        font-size: 0.82rem;
+        color: var(--rust);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        font-weight: 500;
+        transition: gap 0.2s;
+      }
+      .sec-link:hover {
+        gap: 0.55rem;
+      }
+      .filter-tabs {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+      .ftab {
+        font-size: 0.78rem;
+        font-weight: 500;
+        padding: 0.42rem 1.1rem;
+        border-radius: 50px;
+        border: 1.5px solid var(--sand);
+        background: transparent;
+        color: var(--taupe);
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .ftab:hover {
+        border-color: var(--rust);
+        color: var(--rust);
+      }
+      .ftab.active {
+        background: var(--rust);
+        border-color: var(--rust);
+        color: #fff;
+      }
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.2rem;
+      }
+      .menu-card {
+        background: var(--card-bg);
+        border-radius: 14px;
+        overflow: hidden;
+        cursor: pointer;
+        transition:
+          box-shadow 0.25s,
+          transform 0.25s;
+      }
+      .menu-card:hover {
+        box-shadow: 0 12px 40px rgba(30, 18, 8, 0.12);
+        transform: translateY(-3px);
+      }
+      .menu-img-wrap {
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 4/3;
+      }
+      .menu-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.5s ease;
+      }
+      .menu-card:hover .menu-img-wrap img {
+        transform: scale(1.07);
+      }
+      .menu-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-size: 0.58rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 0.25rem 0.7rem;
+        border-radius: 4px;
+      }
+      .badge-bs {
+        background: var(--rust);
+        color: #fff;
+      }
+      .badge-new {
+        background: var(--olive);
+        color: #fff;
+      }
+      .menu-body {
+        padding: 1rem 1rem 0.8rem;
+      }
+      .menu-name {
+        font-weight: 600;
+        font-size: 0.92rem;
+        color: var(--ink);
+        margin-bottom: 0.25rem;
+      }
+      .menu-desc {
+        font-size: 0.75rem;
+        color: var(--taupe);
+        font-weight: 300;
+        line-height: 1.5;
+        margin-bottom: 0.7rem;
+      }
+      .menu-price {
+        font-weight: 700;
+        font-size: 0.92rem;
+        color: var(--rust);
+        margin-bottom: 0.8rem;
+      }
+      .btn-wa-card {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.45rem;
+        font-size: 0.76rem;
+        font-weight: 500;
+        background: var(--olive);
+        color: #fff;
+        border: none;
+        border-radius: 50px;
+        padding: 0.5rem 0.9rem;
+        width: 100%;
+        transition: background 0.2s;
+        cursor: pointer;
+      }
+      .btn-wa-card:hover {
+        background: var(--olive-lt);
+      }
+      .btn-wa-card i {
+        font-size: 0.85rem;
+      }
+
+      /* ── HOW TO ORDER ── */
+      #howto {
+        background: var(--olive);
+        padding: 64px 0;
+      }
+      .howto-title {
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+        font-weight: 700;
+        font-size: clamp(1.4rem, 3vw, 2rem);
+        color: #fff;
+        margin-bottom: 2.5rem;
+      }
+      .steps-row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 0;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+      }
+      .step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        flex: 1;
+        min-width: 120px;
+        max-width: 160px;
+        position: relative;
+      }
+      .step:not(:last-child)::after {
+        content: "→";
+        position: absolute;
+        right: -14px;
+        top: 20px;
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.35);
+        font-weight: 300;
+      }
+      .step-circle {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1.5px solid rgba(255, 255, 255, 0.25);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0.6rem;
+        position: relative;
+        overflow: visible;
+      }
+      .step-circle i {
+        font-size: 1.2rem;
+        color: #fff;
+      }
+      .step-num {
+        position: absolute;
+        top: -6px;
+        right: -6px;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--rust);
+        color: #fff;
+        font-size: 0.55rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .step-name {
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: #fff;
+        margin-bottom: 0.2rem;
+      }
+      .step-sub {
+        font-size: 0.7rem;
+        color: rgba(255, 255, 255, 0.55);
+        font-weight: 300;
+        line-height: 1.45;
+        max-width: 120px;
+      }
+
+      /* ── TESTIMONIALS ── */
+      #testi {
+        padding: 72px 0;
+        background: var(--cream);
+      }
+      .testi-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+      }
+      .testi-slider-wrap {
+        position: relative;
+      }
+      .testi-track {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.1rem;
+      }
+      .testi-card {
+        background: var(--card-bg);
+        border-radius: 16px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 20px rgba(30, 18, 8, 0.06);
+      }
+      .testi-stars {
+        color: #d4a017;
+        font-size: 0.85rem;
+        letter-spacing: 0.1rem;
+        margin-bottom: 0.9rem;
+      }
+      .testi-text {
+        font-size: 0.85rem;
+        color: var(--ink);
+        line-height: 1.75;
+        font-weight: 300;
+        margin-bottom: 1.1rem;
+        font-style: italic;
+      }
+      .testi-person {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+      }
+      .testi-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        object-fit: cover;
+        flex-shrink: 0;
+        border: 2px solid var(--sand);
+      }
+      .testi-name {
+        font-size: 0.82rem;
+        font-weight: 500;
+        color: var(--ink);
+      }
+      .testi-loc {
+        font-size: 0.72rem;
+        color: var(--taupe);
+        font-weight: 300;
+      }
+      .testi-dots {
+        display: flex;
+        gap: 0.45rem;
+        justify-content: center;
+        margin-top: 1.5rem;
+      }
+      .testi-dots span {
+        width: 22px;
+        height: 4px;
+        border-radius: 2px;
+        background: var(--rust);
+        opacity: 0.2;
+        transition:
+          opacity 0.3s,
+          width 0.3s;
+      }
+      .testi-dots span.active {
+        opacity: 1;
+        width: 32px;
+      }
+      .testi-nav {
+        display: flex;
+        gap: 0.5rem;
+      }
+      .testi-btn {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: var(--white);
+        border: 1px solid var(--sand);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 0.9rem;
+        color: var(--ink);
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+      }
+      .testi-btn:hover {
+        background: var(--rust);
+        border-color: var(--rust);
+        color: #fff;
+      }
+
+      /* ── INSTAGRAM STRIP ── */
+      #instagram {
+        padding: 60px 0;
+        background: var(--white);
+      }
+      .ig-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.6rem;
+      }
+      .ig-handle {
+        font-size: 0.82rem;
+        color: var(--rust);
+        font-weight: 500;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+      .ig-handle:hover {
+        color: var(--rust-dk);
+      }
+      .ig-grid {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        gap: 0.5rem;
+      }
+      .ig-cell {
+        aspect-ratio: 1/1;
+        overflow: hidden;
+        border-radius: 8px;
+        background: var(--cream);
+      }
+      .ig-cell img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition:
+          transform 0.4s ease,
+          filter 0.3s;
+        filter: brightness(0.98);
+      }
+      .ig-cell:hover img {
+        transform: scale(1.06);
+        filter: brightness(1.04);
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        background: var(--rust-dk);
+        padding: 52px 0 24px;
+      }
+      .footer-logo {
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+        font-weight: 700;
+        font-size: 1.4rem;
+        color: #fff;
+        text-decoration: none;
+        display: inline-block;
+        margin-bottom: 0.3rem;
+      }
+      .footer-logo small {
+        display: block;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 0.46rem;
+        letter-spacing: 0.26em;
+        color: rgba(255, 255, 255, 0.45);
+        margin-top: 0.15rem;
+      }
+      .footer-tagline {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.55);
+        font-weight: 300;
+        line-height: 1.75;
+        margin-top: 0.75rem;
+        max-width: 210px;
+      }
+      .footer-col-title {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.55);
+        margin-bottom: 1rem;
+      }
+      .footer-contact-list {
+        list-style: none;
+        padding: 0;
+      }
+      .footer-contact-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.6rem;
+        font-size: 0.82rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 0.55rem;
+        font-weight: 300;
+      }
+      .footer-contact-list li i {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.85rem;
+        margin-top: 0.1rem;
+        flex-shrink: 0;
+      }
+      .footer-hours-val {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 300;
+        line-height: 1.7;
+      }
+      .footer-wa-card {
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 14px;
+        padding: 1.5rem;
+      }
+      .footer-wa-card p {
+        font-size: 0.82rem;
+        color: rgba(255, 255, 255, 0.65);
+        margin: 0 0 1rem;
+        font-weight: 300;
+        line-height: 1.6;
+      }
+      .footer-wa-card strong {
+        color: #fff;
+      }
+      .btn-footer-wa {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.55rem;
+        background: transparent;
+        color: #fff;
+        font-size: 0.82rem;
+        font-weight: 500;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+        border-radius: 8px;
+        padding: 0.7rem 1.2rem;
+        text-decoration: none;
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+      }
+      .btn-footer-wa:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.6);
+        color: #fff;
+      }
+      .footer-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin-top: 2.2rem;
+        padding-top: 1.1rem;
+        text-align: center;
+        font-size: 0.74rem;
+        color: rgba(255, 255, 255, 0.3);
+        font-weight: 300;
+      }
+
+      /* ── BACK TO TOP ── */
+      .back-to-top {
+        position: fixed;
+        bottom: 1.8rem;
+        right: 1.8rem;
+        z-index: 999;
+        width: 42px;
+        height: 42px;
+        background: var(--rust);
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        font-size: 1rem;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 16px rgba(123, 32, 32, 0.35);
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          transform 0.15s;
+      }
+      .back-to-top.show {
+        display: flex;
+      }
+      .back-to-top:hover {
+        background: var(--rust-dk);
+        transform: translateY(-2px);
+      }
+
+      /* ── PRODUCT MODAL ── */
+      .modal-img-side {
+        position: relative;
+        height: 100%;
+        min-height: 450px;
+        overflow: hidden;
+        background: var(--cream);
+      }
+
+      .modal-img-side img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .modal-tag-overlay {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        font-size: 0.58rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 0.28rem 0.8rem;
+        border-radius: 4px;
+      }
+      .modal-content-side {
+        flex: 1;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+      }
+      .modal-cat {
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--taupe);
+        margin-bottom: 0.5rem;
+      }
+      .modal-title {
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+        font-weight: 700;
+        font-size: 1.5rem;
+        color: var(--ink);
+        line-height: 1.2;
+        margin-bottom: 0.4rem;
+      }
+      .modal-price {
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--rust);
+        margin-bottom: 1rem;
+      }
+      .modal-hr {
+        height: 1px;
+        background: var(--sand);
+        margin-bottom: 1rem;
+      }
+      .modal-desc {
+        font-size: 0.85rem;
+        color: var(--taupe);
+        line-height: 1.8;
+        font-weight: 300;
+        margin-bottom: 1.2rem;
+      }
+      .modal-details {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 1.4rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .modal-details li {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.8rem;
+        color: var(--ink);
+        font-weight: 300;
+      }
+      .modal-details li i {
+        color: var(--olive);
+        font-size: 0.9rem;
+        flex-shrink: 0;
+      }
+      .btn-modal-wa {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        background: var(--olive);
+        color: #fff;
+        font-size: 0.86rem;
+        font-weight: 500;
+        border: none;
+        border-radius: 50px;
+        padding: 0.95rem 1.4rem;
+        text-decoration: none;
+        margin-top: auto;
+        transition:
+          background 0.2s,
+          transform 0.15s;
+      }
+      .btn-modal-wa:hover {
+        background: var(--olive-lt);
+        color: #fff;
+        transform: translateY(-1px);
+      }
+      .modal-note {
+        font-size: 0.7rem;
+        color: var(--taupe);
+        text-align: center;
+        margin-top: 0.65rem;
+        font-weight: 300;
+      }
+      .modal-content {
+        border: none;
+        border-radius: 20px;
+        overflow: hidden;
+      }
+
+      .modal-img-side {
+        height: 100%;
+        min-height: 350px;
+        position: relative;
+      }
+
+      .modal-img-side img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* ── REVEAL ── */
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ══ RESPONSIVE ══ */
+      @media (max-width: 1200px) {
+        .hero-left {
+          padding-left: 2rem;
+        }
+      }
+      @media (max-width: 992px) {
+        #hero {
+          grid-template-columns: 1fr;
+          min-height: auto;
+        }
+        .hero-left {
+          padding: 5rem 1rem 2.5rem;
+          text-align: center;
+          order: 2;
+        }
+        .hero-left .hero-desc {
+          margin: 0 auto 2rem;
+        }
+        .hero-right {
+          height: 55vw;
+          min-height: 280px;
+          order: 1;
+        }
+        .hero-right::after {
+          background: linear-gradient(
+            to bottom,
+            transparent 70%,
+            var(--cream) 100%
+          );
+        }
+        .feat-strip {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .feat-item {
+          border-right: none;
+          border-bottom: 1px solid rgba(30, 18, 8, 0.07);
+        }
+        .feat-item:nth-child(odd) {
+          border-right: 1px solid rgba(30, 18, 8, 0.07);
+        }
+        .feat-item:nth-last-child(-n + 2) {
+          border-bottom: none;
+        }
+        .menu-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .testi-track {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .ig-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+        .steps-row {
+          gap: 0.5rem;
+          justify-content: flex-start;
+        }
+        .step {
+          min-width: 110px;
+        }
+      }
+      @media (max-width: 768px) {
+        #hero {
+          min-height: auto;
+        }
+        .hero-title {
+          font-size: 2rem;
+        }
+        .feat-strip {
+          grid-template-columns: 1fr 1fr;
+        }
+        .menu-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 0.9rem;
+        }
+        .testi-track {
+          grid-template-columns: 1fr;
+        }
+        .ig-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+        /* Modal mobile */
+        .modal-box {
+          flex-direction: column;
+          max-height: 92vh;
+        }
+        .modal-img-side {
+          width: 100%;
+          height: 220px;
+          min-height: unset;
+          flex-shrink: 0;
+        }
+        .modal-content-side {
+          padding: 1.3rem;
+        }
+        .steps-row {
+          flex-wrap: wrap;
+          gap: 1rem;
+          justify-content: center;
+        }
+        .step:not(:last-child)::after {
+          display: none;
+        }
+      }
+      @media (max-width: 576px) {
+        .menu-grid {
+          grid-template-columns: 1fr;
+        }
+        .ig-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .testi-track {
+          grid-template-columns: 1fr;
+        }
+        .filter-tabs {
+          gap: 0.35rem;
+        }
+        .hero-left {
+          padding: 4rem 1rem 2rem;
+        }
+        .modal-box {
+          border-radius: 14px;
+        }
+        .modal-content-side {
+          padding: 1.1rem;
+        }
+        .modal-title {
+          font-size: 1.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg" id="mainNav">
+      <div class="container">
+        <a class="nav-logo" href="#beranda"
+          >BakeryOne<small>Baked with Love</small></a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navMenu"
+        >
+          <i
+            class="bi bi-list"
+            style="font-size: 1.6rem; color: var(--rust)"
+          ></i>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-center"
+          id="navMenu"
+        >
+          <ul class="navbar-nav gap-lg-1">
+            <li class="nav-item">
+              <a class="nav-link" href="#beranda">Beranda</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#menu">Menu</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="#howto">Tentang Kami</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#testi">Testimoni</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#footer">Kontak</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="beranda" style="padding: 0">
+      <div id="hero">
+        <div class="hero-left reveal">
+          <div class="hero-label">
+            <i class="bi bi-flower1"></i> Homemade · Fresh Every Day
+          </div>
+          <h1 class="hero-title">
+            Homemade Bakery<br />untuk Momen<br />Spesial Anda
+          </h1>
+          <div class="hero-divider">
+            <span class="hero-divider-line"></span>
+            <span class="hero-divider-emoji">🍒</span>
+          </div>
+          <p class="hero-desc">
+            Cake, roti, cookies, dan dessert premium yang dibuat fresh setiap
+            hari dengan bahan berkualitas. Tersedia untuk pesanan harian maupun
+            acara spesial.
+          </p>
+          <a
+            href="https://wa.me/6283869500212?text=Halo%20BakeryOne!%20Saya%20ingin%20memesan."
+            target="_blank"
+            class="btn-hero-wa"
+          >
+            <i class="bi bi-whatsapp"></i> Pesan Sekarang via WhatsApp
+          </a>
+        </div>
+        <div class="hero-right">
+          <img
+            src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?w=900&q=85"
+            alt="Kue Premium BakeryOne"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <div id="features">
+      <div class="feat-strip">
+        <div class="feat-item">
+          <div class="feat-icon olive"><i class="bi bi-flower2"></i></div>
+          <div>
+            <div class="feat-name">Fresh Every Day</div>
+            <div class="feat-sub">Semua produk dibuat fresh setiap hari</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon rust"><i class="bi bi-truck"></i></div>
+          <div>
+            <div class="feat-name">Siap Diantar</div>
+            <div class="feat-sub">Pengiriman cepat dan aman</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon rust"><i class="bi bi-heart-fill"></i></div>
+          <div>
+            <div class="feat-name">Dibuat Dengan Cinta</div>
+            <div class="feat-sub">Dibuat dengan penuh cinta dan perhatian</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon olive"><i class="bi bi-award"></i></div>
+          <div>
+            <div class="feat-name">Bahan Premium</div>
+            <div class="feat-sub">
+              Hanya menggunakan bahan berkualitas terbaik
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MENU -->
+    <section id="menu">
+      <div class="container">
+        <div class="menu-header reveal">
+          <h2 class="sec-eyebrow">
+            Menu Favorit Kami <span class="sec-eyebrow-emoji">🍒</span>
+          </h2>
+        </div>
+        <div class="filter-tabs reveal" id="filterTabs">
+          <button class="ftab active" data-cat="semua">Semua</button>
+          <button class="ftab" data-cat="cake">Cake</button>
+          <button class="ftab" data-cat="bread">Bread</button>
+          <button class="ftab" data-cat="cookies">Cookies</button>
+          <button class="ftab" data-cat="dessert">Dessert</button>
+        </div>
+        <div class="menu-grid reveal" id="menuGrid"></div>
+      </div>
+    </section>
+
+    <!-- HOW TO ORDER -->
+    <section id="howto">
+      <div class="container">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-4 reveal">
+            <div class="howto-title">Cara Pemesanan<br />di BakeryOne 🍒</div>
+            <p
+              style="
+                font-size: 0.85rem;
+                color: rgba(255, 255, 255, 0.55);
+                font-weight: 300;
+                line-height: 1.75;
+              "
+            >
+              Proses pemesanan yang mudah dan cepat — cukup beberapa langkah
+              sederhana.
+            </p>
+          </div>
+          <div class="col-lg-8 reveal">
+            <div class="steps-row">
+              <div class="step">
+                <div class="step-circle"><i class="bi bi-cake2"></i></div>
+                <div class="step-name">Pilih Produk</div>
+                <div class="step-sub">Pilih produk yang Anda inginkan</div>
+              </div>
+              <div class="step">
+                <div class="step-circle"><i class="bi bi-whatsapp"></i></div>
+                <div class="step-name">Klik WhatsApp</div>
+                <div class="step-sub">Klik tombol WhatsApp pada produk</div>
+              </div>
+              <div class="step">
+                <div class="step-circle"><i class="bi bi-chat-dots"></i></div>
+                <div class="step-name">Kirim Detail</div>
+                <div class="step-sub">
+                  Kirim detail pesanan melalui WhatsApp
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-circle"><i class="bi bi-credit-card"></i></div>
+                <div class="step-name">Konfirmasi Pembayaran</div>
+                <div class="step-sub">Lakukan pembayaran sesuai info admin</div>
+              </div>
+              <div class="step">
+                <div class="step-circle"><i class="bi bi-box-seam"></i></div>
+                <div class="step-name">Pesanan Diproses</div>
+                <div class="step-sub">
+                  Pesanan Anda akan kami proses dengan baik
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testi">
+      <div class="container">
+        <div class="testi-header reveal">
+          <h2 class="sec-eyebrow">
+            Apa Kata Mereka <span class="sec-eyebrow-emoji">🍒</span>
+          </h2>
+          <div class="testi-nav">
+            <button class="testi-btn" onclick="slideTesti(-1)">
+              <i class="bi bi-chevron-left"></i>
+            </button>
+            <button class="testi-btn" onclick="slideTesti(1)">
+              <i class="bi bi-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+        <div class="testi-slider-wrap reveal">
+          <div class="testi-track" id="testiTrack"></div>
+          <div class="testi-dots" id="testiDots"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INSTAGRAM -->
+    <section id="instagram">
+      <div class="container">
+        <div class="ig-header reveal">
+          <h2 class="sec-eyebrow">
+            Temukan Kami di Instagram <span class="sec-eyebrow-emoji">🍒</span>
+          </h2>
+          <a href="#" class="ig-handle"
+            ><i class="bi bi-instagram"></i> @bakeryone.id</a
+          >
+        </div>
+        <div class="ig-grid reveal">
+          <div class="ig-cell">
+            <img
+              src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=200&q=80"
+              alt=""
+            />
+          </div>
+          <div class="ig-cell">
+            <img
+              src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=200&q=80"
+              alt=""
+            />
+          </div>
+          <div class="ig-cell">
+            <img
+              src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=200&q=80"
+              alt=""
+            />
+          </div>
+          <div class="ig-cell">
+            <img
+              src="https://images.unsplash.com/photo-1675712843856-ba2cb7d33f3c?q=80&w=1170"
+              alt=""
+            />
+          </div>
+          <div class="ig-cell">
+            <img
+              src="https://images.unsplash.com/photo-1535254973040-607b474cb50d?w=200&q=80"
+              alt=""
+            />
+          </div>
+          <div class="ig-cell">
+            <img
+              src="https://images.unsplash.com/photo-1551024601-bec78aea704b?q=80&w=764&auto=format&fit=crop"
+              alt=""
+            />
+          </div>
+          <div class="ig-cell">
+            <img
+              src="https://images.unsplash.com/photo-1623246123320-0d6636755796?w=600&auto=format&fit=crop&q=60"
+              alt=""
+            />
+          </div>
+          <div class="ig-cell">
+            <img
+              src="https://images.unsplash.com/photo-1558326567-98ae2405596b?q=80&w=759&auto=format&fit=crop"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="footer">
+      <div class="container">
+        <div class="row g-4 align-items-start">
+          <div class="col-lg-3 col-md-6">
+            <a href="#" class="footer-logo"
+              >BakeryOne<small>Baked with Love</small></a
+            >
+            <p class="footer-tagline">
+              BakeryOne hadir untuk menemani setiap momen spesial Anda dengan
+              produk berkualitas dan dibuat dengan penuh cinta.
+            </p>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="footer-col-title">Hubungi Kami</div>
+            <ul class="footer-contact-list">
+              <li><i class="bi bi-whatsapp"></i> +62 838-6950-0212</li>
+              <li><i class="bi bi-instagram"></i> @bakeryone.id</li>
+              <li><i class="bi bi-envelope"></i> hello@bakeryone.com</li>
+              <li><i class="bi bi-geo-alt"></i> Jl. Manis No.1, Medan</li>
+            </ul>
+          </div>
+          <div class="col-lg-2 col-md-6">
+            <div class="footer-col-title">Jam Operasional</div>
+            <div class="footer-hours-val">
+              Setiap Hari<br />08.00 – 20.00 WIB
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="footer-wa-card">
+              <p>
+                <strong>Mau pesan sekarang?</strong><br />Yuk chat kami di
+                WhatsApp!
+              </p>
+              <a
+                href="https://wa.me/6283869500212?text=Halo%20BakeryOne!%20Saya%20ingin%20memesan."
+                target="_blank"
+                class="btn-footer-wa"
+              >
+                <i class="bi bi-whatsapp"></i> Chat via WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">© 2026 BakeryOne. All rights reserved.</div>
+      </div>
+    </footer>
+
+    <button
+      class="back-to-top"
+      id="backToTop"
+      onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+    >
+      <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <!-- MODAL (Custom — tidak pakai Bootstrap modal JS) -->
+    <!-- <div class="modal-backdrop-custom" id="productModal" onclick="closeModal(event)">
+      <div class="modal-box">
+        <button class="modal-close" onclick="closeModalDirect()" aria-label="Tutup">
+          <i class="bi bi-x-lg"></i>
+        </button>
+        <div class="modal-img-side">
+          <img src="" alt="" id="modalImg" />
+          <span class="modal-tag-overlay" id="modalTag"></span>
+        </div>
+        <div class="modal-content-side">
+          <div class="modal-cat" id="modalCat"></div>
+          <div class="modal-title" id="modalTitle"></div>
+          <div class="modal-price" id="modalPrice"></div>
+          <div class="modal-hr"></div>
+          <p class="modal-desc" id="modalDesc"></p>
+          <ul class="modal-details" id="modalDetails"></ul>
+          <a href="#" class="btn-modal-wa" id="modalWaBtn" target="_blank">
+            <i class="bi bi-whatsapp"></i> Pesan via WhatsApp
+          </a>
+          <p class="modal-note">Pemesanan dilayani setiap hari 08.00 – 20.00 WIB</p>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <button
+            type="button"
+            class="btn-close position-absolute top-0 end-0 m-3"
+            data-bs-dismiss="modal"
+          ></button>
+
+          <div class="row g-0">
+            <div class="col-md-5">
+              <div class="modal-img-side">
+                <img src="" alt="" id="modalImg" />
+                <span class="modal-tag-overlay" id="modalTag"></span>
+              </div>
+            </div>
+
+            <div class="col-md-7">
+              <div class="modal-content-side">
+                <div class="modal-cat" id="modalCat"></div>
+                <div class="modal-title" id="modalTitle"></div>
+                <div class="modal-price" id="modalPrice"></div>
+                <div class="modal-hr"></div>
+
+                <p class="modal-desc" id="modalDesc"></p>
+
+                <ul class="modal-details" id="modalDetails"></ul>
+
+                <a
+                  href="#"
+                  class="btn-modal-wa"
+                  id="modalWaBtn"
+                  target="_blank"
+                >
+                  <i class="bi bi-whatsapp"></i>
+                  Pesan via WhatsApp
+                </a>
+
+                <p class="modal-note">
+                  Pemesanan dilayani setiap hari 08.00 – 20.00 WIB
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      /* ── DATA ── */
+      const products = [
+        {
+          cat: "cake",
+          tag: "badge-bs",
+          label: "Best Seller",
+          img: "https://plus.unsplash.com/premium_photo-1713447395823-2e0b40b75a89?q=80&w=682&auto=format&fit=crop",
+          name: "Red Velvet Cake",
+          desc: "Sponge lembut dengan cream cheese frosting yang rich dan tidak eneg.",
+          price: "Rp 175.000",
+          fullDesc:
+            "Red velvet cake dengan lapisan cream cheese frosting yang kaya namun ringan. Dibuat dari bahan pilihan tanpa pengawet, cocok untuk perayaan spesial.",
+          details: [
+            { icon: "bi-hourglass-split", text: "18 cm (8–10 porsi)" },
+            { icon: "bi-clock", text: "Tahan 2–3 hari dalam kulkas" },
+            { icon: "bi-box-seam", text: "Bisa custom tulisan & dekorasi" },
+            { icon: "bi-calendar-check", text: "Pesan minimal H-2" },
+          ],
+          waMsg:
+            "Halo BakeryOne! Saya ingin memesan Red Velvet Cake (Rp 175.000). Mohon info ketersediaannya.",
+        },
+        {
+          cat: "cake",
+          tag: "",
+          label: "",
+          img: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&q=80",
+          name: "Strawberry Shortcake",
+          desc: "Perpaduan sponge vanilla, whipped cream, dan strawberry segar.",
+          price: "Rp 165.000",
+          fullDesc:
+            "Sponge cake ringan dipadu krim susu segar dan stroberi pilihan. Tampilan cantik yang cocok untuk hadiah maupun perayaan ulang tahun.",
+          details: [
+            { icon: "bi-rulers", text: "18 cm (8–10 porsi)" },
+            { icon: "bi-clock", text: "Tahan 1–2 hari dalam kulkas" },
+            { icon: "bi-box-seam", text: "Bisa custom tulisan & dekorasi" },
+            { icon: "bi-calendar-check", text: "Pesan minimal H-1" },
+          ],
+          waMsg:
+            "Halo BakeryOne! Saya ingin memesan Strawberry Shortcake (Rp 165.000). Mohon info ketersediaannya.",
+        },
+        {
+          cat: "cake",
+          tag: "badge-bs",
+          label: "Best Seller",
+          img: "https://images.unsplash.com/photo-1535254973040-607b474cb50d?w=600&q=80",
+          name: "Wedding Cake Classic",
+          desc: "Kue pernikahan 3 tier elegan, fully customizable.",
+          price: "Rp 1.200.000",
+          fullDesc:
+            "Kue pernikahan 3 tingkat elegan dengan desain klasik yang sepenuhnya bisa dikustomisasi sesuai tema pernikahan Anda. Dibuat dari bahan premium dengan dekorasi fondant.",
+          details: [
+            { icon: "bi-rulers", text: "3 tier (±50–60 porsi)" },
+            { icon: "bi-clock", text: "Pesan minimal H-7" },
+            { icon: "bi-box-seam", text: "Full custom design & flavor" },
+            { icon: "bi-telephone", text: "Konsultasi gratis via WA" },
+          ],
+          waMsg:
+            "Halo BakeryOne! Saya tertarik dengan Wedding Cake Classic. Boleh konsultasi untuk detail dan customisasi?",
+        },
+        {
+          cat: "cake",
+          tag: "",
+          label: "",
+          img: "https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=600&auto=format&fit=crop&q=60",
+          name: "Custom Birthday Cake",
+          desc: "Birthday cake custom dengan desain personal dan rasa premium pilihan.",
+          price: "Rp 265.000",
+          fullDesc:
+            "Birthday cake custom dengan desain personal dan rasa premium pilihan. Tampilan cantik yang cocok untuk hadiah maupun perayaan ulang tahun.",
+          details: [
+            { icon: "bi-rulers", text: "18 cm (8–10 porsi)" },
+            { icon: "bi-clock", text: "Tahan 1–2 hari dalam kulkas" },
+            { icon: "bi-box-seam", text: "Bisa custom tulisan & dekorasi" },
+            { icon: "bi-calendar-check", text: "Pesan minimal H-1" },
+          ],
+          waMsg:
+            "Halo BakeryOne! Saya ingin memesan Custom Birthday Cake (Rp 265.000). Mohon info ketersediaannya.",
+        },
+        {
+          cat: "bread",
+          tag: "badge-new",
+          label: "New",
+          img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&q=80",
+          name: "Japanese Milk Bread",
+          desc: "Roti susu lembut dan fluffy, cocok untuk segala momen.",
+          price: "Rp 55.000",
+          fullDesc:
+            "Roti Jepang super lembut menggunakan teknik Tangzhong. Teksturnya ringan, sedikit manis, dan tahan lembut lebih lama dari roti biasa.",
+          details: [
+            { icon: "bi-rulers", text: "6 potong per loaf" },
+            { icon: "bi-clock", text: "Tahan 2–3 hari suhu ruang" },
+            { icon: "bi-box-seam", text: "Varian: plain, keju, coklat" },
+            { icon: "bi-sun", text: "Fresh setiap hari mulai pukul 07.00" },
+          ],
+          waMsg:
+            "Halo BakeryOne! Saya ingin memesan Japanese Milk Bread (Rp 55.000). Mohon info varian yang tersedia.",
+        },
+        {
+          cat: "bread",
+          tag: "badge-new",
+          label: "New",
+          img: "https://images.unsplash.com/photo-1675712843856-ba2cb7d33f3c?q=80&w=1170",
+          name: "Banana Bread",
+          desc: "Banana cake homemade yang lembut dan moist, dibuat dari pisang berkualitas pilihan.",
+          price: "Rp 95.000",
+          fullDesc:
+            "Banana cake homemade yang lembut dan moist, dibuat dari pisang berkualitas pilihan.",
+          details: [
+            { icon: "bi-rulers", text: "6 potong per loaf" },
+            { icon: "bi-clock", text: "Tahan 2–3 hari suhu ruang" },
+            { icon: "bi-box-seam", text: "Varian: plain, keju, coklat" },
+            { icon: "bi-sun", text: "Fresh setiap hari mulai pukul 07.00" },
+          ],
+          waMsg:
+            "Halo BakeryOne! Saya ingin memesan Banana Bread (Rp 95.000). Mohon info varian yang tersedia.",
+        },
+        {
+          cat: "bread",
+          tag: "",
+          label: "",
+          img: "https://plus.unsplash.com/premium_photo-1692809723031-98c72b1871c7?q=80&w=387",
+          name: "Butter Croissant",
+          desc: "Berlapis-lapis dengan mentega premium, renyah dan harum.",
+          price: "Rp 28.000",
+          fullDesc:
+            "Croissant autentik berlapis tipis dengan mentega premium Prancis. Dipanggang hingga keemasan sempurna — renyah di luar, lembut dan harum di dalam.",
+          details: [
+            { icon: "bi-rulers", text: "Per buah (±80 gr)" },
+            { icon: "bi-clock", text: "Terbaik dikonsumsi hari yang sama" },
+            { icon: "bi-box-seam", text: "Varian: plain, almond, coklat" },
+            { icon: "bi-sun", text: "Fresh mulai pukul 07.00" },
+          ],
+          waMsg:
+            "Halo BakeryOne! Saya ingin memesan Butter Croissant (Rp 28.000). Mohon info varian yang ada.",
+        },
+        {
+          cat: "cookies",
+          tag: "",
+          label: "",
+          img: "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600&q=80",
+          name: "Choco Cookies",
+          desc: "Cookies renyah di luar, lembut di dalam dengan choco chips premium.",
+          price: "Rp 25.000",
+          fullDesc:
+            "Double chocolate cookies dengan tekstur crispy di luar dan chewy di dalam. Topping flaky salt menghadirkan perpaduan rasa yang tak terlupakan.",
+          details: [
+            { icon: "bi-rulers", text: "±12 keping per toples" },
+            { icon: "bi-clock", text: "Tahan 7 hari dalam toples tertutup" },
+            { icon: "bi-box-seam", text: "Tersedia kemasan gift box" },
+            { icon: "bi-sun", text: "Stok tersedia setiap hari" },
+          ],
+          waMsg:
+            "Halo BakeryOne! Saya ingin memesan Choco Cookies (Rp 25.000). Mohon info ketersediaannya.",
+        },
+        {
+          cat: "cookies",
+          tag: "",
+          label: "",
+          img: "https://plus.unsplash.com/premium_photo-1670895802120-0837b826f43d?w=600&auto=format&fit=crop&q=60",
+          name: "Almond Biscotti",
+          desc: "Kering renyah dengan cita rasa almond yang kaya.",
+          price: "Rp 28.000",
+          fullDesc:
+            "Biscotti kering Itali dengan almond panggang pilihan. Sempurna disajikan bersama teh atau kopi, juga cocok sebagai oleh-oleh.",
+          details: [
+            { icon: "bi-rulers", text: "±10 keping per pack" },
+            { icon: "bi-clock", text: "Tahan 14 hari dalam wadah tertutup" },
+            { icon: "bi-box-seam", text: "Tersedia kemasan gift box" },
+            { icon: "bi-sun", text: "Stok tersedia setiap hari" },
+          ],
+          waMsg:
+            "Halo BakeryOne! Saya ingin memesan Almond Biscotti (Rp 28.000). Mohon info ketersediaannya.",
+        },
+        {
+          cat: "cookies",
+          tag: "",
+          label: "",
+          img: "https://images.unsplash.com/photo-1559622214-f8a9850965bb?w=600&auto=format&fit=crop&q=60",
+          name: "Ice Cream Cookies",
+          desc: "Cookies renyah dengan es krim creamy yang lembut dan menyegarkan.",
+          price: "Rp 35.000",
+          fullDesc:
+            "Cookies renyah dengan es krim creamy yang lembut dan menyegarkan.",
+          details: [
+            { icon: "bi-rulers", text: "±10 keping per pack" },
+            { icon: "bi-clock", text: "Tahan 14 hari dalam wadah tertutup" },
+            { icon: "bi-box-seam", text: "Tersedia kemasan gift box" },
+            { icon: "bi-sun", text: "Stok tersedia setiap hari" },
+          ],
+          waMsg:
+            "Halo BakeryOne! Saya ingin memesan Ice Cream Cookies (Rp 35.000). Mohon info ketersediaannya.",
+        },
+        {
+          cat: "dessert",
+          tag: "",
+          label: "",
+          img: "https://images.unsplash.com/photo-1551024601-bec78aea704b?q=80&w=764&auto=format&fit=crop",
+          name: "Sprinkle Donuts",
+          desc: "Donat premium yang lembut dengan topping sprinkle warna-warni.",
+          price: "Rp 55.000",
+          fullDesc:
+            "Donat premium yang lembut dengan topping sprinkle warna-warni.",
+          details: [
+            { icon: "bi-rulers", text: "Per buah (±80 gr)" },
+            { icon: "bi-clock", text: "Tahan 2 hari dalam kulkas" },
+            { icon: "bi-box-seam", text: "Tersedia varian pilihan" },
+            { icon: "bi-sun", text: "Stok tersedia setiap hari" },
+          ],
+          waMsg:
+            "Halo BakeryOne! Saya ingin memesan Sprinkle Donuts (Rp 55.000). Mohon info ketersediaannya.",
+        },
+        {
+          cat: "dessert",
+          tag: "",
+          label: "",
+          img: "https://images.unsplash.com/photo-1558326567-98ae2405596b?q=80&w=759&auto=format&fit=crop",
+          name: "French Macaron",
+          desc: "Macaron cantik dengan berbagai pilihan rasa dan warna.",
+          price: "Rp 55.000",
+          fullDesc:
+            "Kumpulan macaron cantik dengan berbagai pilihan rasa dan warna, cocok sebagai hadiah maupun camilan spesial.",
+          details: [
+            { icon: "bi-rulers", text: "Per box (6 pcs)" },
+            { icon: "bi-clock", text: "Tahan 2 hari dalam kulkas" },
+            { icon: "bi-box-seam", text: "Tersedia berbagai varian rasa" },
+            { icon: "bi-sun", text: "Stok tersedia setiap hari" },
+          ],
+          waMsg:
+            "Halo BakeryOne! Saya ingin memesan French Macaron (Rp 55.000). Mohon info varian yang tersedia.",
+        },
+        {
+          cat: "dessert",
+          tag: "",
+          label: "",
+          img: "https://images.unsplash.com/photo-1623246123320-0d6636755796?w=600&auto=format&fit=crop&q=60",
+          name: "Waffle Chocolate Cupcakes",
+          desc: "Perpaduan waffle crispy dan cupcake lembut dengan topping pilihan.",
+          price: "Rp 20.000",
+          fullDesc:
+            "Sajian cantik dengan perpaduan waffle crispy dan cupcake lembut, dilengkapi topping pilihan untuk pengalaman rasa yang istimewa.",
+          details: [
+            { icon: "bi-rulers", text: "Per buah" },
+            { icon: "bi-clock", text: "Tahan 2 hari dalam kulkas" },
+            { icon: "bi-box-seam", text: "Tersedia varian topping" },
+            { icon: "bi-sun", text: "Stok tersedia setiap hari" },
+          ],
+          waMsg:
+            "Halo BakeryOne! Saya ingin memesan Waffle Chocolate Cupcakes (Rp 20.000). Mohon info ketersediaannya.",
+        },
+      ];
+
+      /* ── MENU FILTER + RENDER ── */
+      let activeCat = "semua";
+      function renderMenu() {
+        const grid = document.getElementById("menuGrid");
+        const filtered =
+          activeCat === "semua"
+            ? products
+            : products.filter((p) => p.cat === activeCat);
+        grid.innerHTML = filtered
+          .map((p) => {
+            const idx = products.indexOf(p);
+            return `<div class="menu-card" onclick="openModal(${idx})">
+              <div class="menu-img-wrap">
+                ${p.tag ? `<span class="menu-badge ${p.tag}">${p.label}</span>` : ""}
+                <img src="${p.img}" alt="${p.name}" loading="lazy"/>
+              </div>
+              <div class="menu-body">
+                <div class="menu-name">${p.name}</div>
+                <div class="menu-desc">${p.desc}</div>
+                <div class="menu-price">${p.price}</div>
+                <button class="btn-wa-card" onclick="event.stopPropagation();waOrder(${idx})">
+                  <i class="bi bi-whatsapp"></i> Pesan via WhatsApp
+                </button>
+              </div>
+            </div>`;
+          })
+          .join("");
+      }
+
+      function waOrder(idx) {
+        const url =
+          "https://wa.me/6283869500212?text=" +
+          encodeURIComponent(products[idx].waMsg);
+        window.open(url, "_blank");
+      }
+
+      document.getElementById("filterTabs").addEventListener("click", (e) => {
+        const btn = e.target.closest(".ftab");
+        if (!btn) return;
+        document
+          .querySelectorAll(".ftab")
+          .forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        activeCat = btn.dataset.cat;
+        renderMenu();
+      });
+      renderMenu();
+
+      /* ── TESTIMONIALS ── */
+      const testis = [
+        {
+          stars: 5,
+          text: '"Cake-nya lembut, tidak terlalu manis dan selalu fresh! Favorit keluarga setiap ada acara."',
+          name: "Siti",
+          loc: "Medan",
+          avatar:
+            "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80",
+        },
+        {
+          stars: 5,
+          text: '"Pengiriman cepat, packaging rapi, dan rasanya enak banget. Pasti order lagi!"',
+          name: "Rina",
+          loc: "Medan",
+          avatar:
+            "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=80&q=80",
+        },
+        {
+          stars: 5,
+          text: '"Roti susunya super lembut, anak-anak suka banget. Recommended!"',
+          name: "Andini",
+          loc: "Medan",
+          avatar:
+            "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80",
+        },
+        {
+          stars: 5,
+          text: '"Cookies-nya crispy dan tidak terlalu manis, cocok banget buat oleh-oleh!"',
+          name: "Dewi",
+          loc: "Medan",
+          avatar:
+            "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=80&q=80",
+        },
+        {
+          stars: 5,
+          text: '"Wedding cake-nya cantik banget dan rasanya lezat. Semua tamu pasti tanya belinya di mana!"',
+          name: "Putri",
+          loc: "Medan",
+          avatar:
+            "https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=80&q=80",
+        },
+      ];
+      let testiIdx = 0;
+      function perPageTesti() {
+        return window.innerWidth < 768 ? 1 : window.innerWidth < 992 ? 2 : 3;
+      }
+      function renderTesti() {
+        const pp = perPageTesti();
+        const track = document.getElementById("testiTrack");
+        track.innerHTML = "";
+        for (let i = 0; i < pp; i++) {
+          const t = testis[(testiIdx + i) % testis.length];
+          track.innerHTML += `<div class="testi-card">
+            <div class="testi-stars">${"★".repeat(t.stars)}</div>
+            <p class="testi-text">${t.text}</p>
+            <div class="testi-person">
+              <img src="${t.avatar}" alt="${t.name}" class="testi-avatar"/>
+              <div>
+                <div class="testi-name">${t.name}</div>
+                <div class="testi-loc">— ${t.loc}</div>
+              </div>
+            </div>
+          </div>`;
+        }
+        const dots = document.getElementById("testiDots");
+        const pages = Math.ceil(testis.length / pp);
+        dots.innerHTML = Array.from(
+          { length: pages },
+          (_, i) =>
+            `<span class="${i === Math.floor(testiIdx / pp) % pages ? "active" : ""}"></span>`,
+        ).join("");
+      }
+      function slideTesti(dir) {
+        testiIdx = (testiIdx + dir + testis.length) % testis.length;
+        renderTesti();
+      }
+      renderTesti();
+      window.addEventListener("resize", renderTesti);
+
+      /* ── MODAL ── */
+      function openModal(idx) {
+        const p = products[idx];
+
+        document.getElementById("modalImg").src = p.img;
+
+        document.getElementById("modalCat").textContent =
+          p.cat.charAt(0).toUpperCase() + p.cat.slice(1);
+
+        document.getElementById("modalTitle").textContent = p.name;
+        document.getElementById("modalPrice").textContent = p.price;
+        document.getElementById("modalDesc").textContent = p.fullDesc;
+
+        document.getElementById("modalDetails").innerHTML = p.details
+          .map((d) => `<li><i class="bi ${d.icon}"></i>${d.text}</li>`)
+          .join("");
+
+        document.getElementById("modalWaBtn").href =
+          "https://wa.me/6283869500212?text=" + encodeURIComponent(p.waMsg);
+
+        const modal = new bootstrap.Modal(
+          document.getElementById("productModal"),
+        );
+
+        modal.show();
+      }
+
+      // Tutup dengan tombol Escape
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeModalDirect();
+      });
+
+      /* ── SCROLL SPY + BACK TO TOP ── */
+      const navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+      const spySections = [
+        { id: "beranda", link: navLinks[0] },
+        { id: "menu", link: navLinks[1] },
+        { id: "howto", link: navLinks[2] },
+        { id: "testi", link: navLinks[3] },
+        { id: "instagram", link: navLinks[4] },
+      ];
+      function updateNav() {
+        const navH = document.getElementById("mainNav").offsetHeight;
+        const y = window.scrollY;
+        let cur = "beranda";
+        spySections.forEach((s) => {
+          const el = document.getElementById(s.id);
+          if (el && el.offsetTop - navH - 30 <= y) cur = s.id;
+        });
+        navLinks.forEach((a) => a.classList.remove("active"));
+        spySections.forEach((s) => {
+          if (s.id === cur) s.link.classList.add("active");
+        });
+        document.getElementById("backToTop").classList.toggle("show", y > 400);
+      }
+      window.addEventListener("scroll", updateNav);
+      updateNav();
+
+      navLinks[0].classList.add("active");
+
+      /* ── REVEAL ── */
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e, i) => {
+            if (e.isIntersecting) {
+              setTimeout(() => e.target.classList.add("visible"), i * 70);
+              obs.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document.querySelectorAll(".reveal").forEach((el) => obs.observe(el));
+    </script>
+  </body>
+</html>
